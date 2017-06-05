@@ -45,9 +45,9 @@ module HelloSign
       #   signature_request = @client.get_signature_request :signature_request_id => 'fa5c8a0b0f492d768749333ad6fcc214c111e967'
       #
       def get_signature_request(opts)
-          path = "/signature_request/#{opts[:signature_request_id]}"
-          query = create_query_string(opts, [:ux_version])
-          path += query
+        path = "/signature_request/#{opts[:signature_request_id]}"
+        query = create_query_string(opts, [:ux_version])
+        path += query
         HelloSign::Resource::SignatureRequest.new get(path)
       end
 
@@ -67,7 +67,7 @@ module HelloSign
         opts[:query] = create_search_string(opts[:query]) if opts[:query]
         query = create_query_string(opts, [:page, :page_size, :ux_version, :query])
         path += query
-        HelloSign::Resource::ResourceArray.new get(path, opts), 'signature_requests',  HelloSign::Resource::SignatureRequest
+        HelloSign::Resource::ResourceArray.new get(path, opts), 'signature_requests', HelloSign::Resource::SignatureRequest
       end
 
       #
@@ -233,6 +233,16 @@ module HelloSign
       #   @client.cancel_signature_request :signature_request_id => '75cdf7dc8b323d43b347e4a3614d1f822bd09491'
       def cancel_signature_request(opts)
         post("/signature_request/cancel/#{opts[:signature_request_id]}", :body => opts)
+      end
+
+      #
+      # Removes your access to a completed a SignatureRequest.
+      # @option opts [String] signature_request_id The id of the SignatureRequest to remove.
+      #
+      # @example
+      #   @client.remove_signature_request :signature_request_id => '75cdf7dc8b323d43b347e4a3614d1f822bd09491'
+      def remove_signature_request(opts)
+        post("/signature_request/remove/#{opts[:signature_request_id]}", :body => opts)
       end
 
       #
