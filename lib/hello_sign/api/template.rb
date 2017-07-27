@@ -163,10 +163,9 @@ module HelloSign
       end
 
       def update_template_files(opts)
-        path = "/template/update_files/#{opts[:template_id]}"
         opts[:client_id] ||= self.client_id
         prepare_files opts
-        HelloSign::Resource::Template.new post(path, :body => opts)
+        HelloSign::Resource::Template.new post("/template/update_files/#{opts[:template_id]}", :body => opts)
       end
     end
   end
